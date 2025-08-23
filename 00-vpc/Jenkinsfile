@@ -67,6 +67,7 @@ pipeline {
                 }
                 }
             }
+        }
         // downstream job
         stage('Trigger sg') {
             steps {
@@ -91,5 +92,4 @@ pipeline {
             echo 'Hello failure'
         }
     }
-}
 }
