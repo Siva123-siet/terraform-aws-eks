@@ -37,7 +37,6 @@ pipeline {
                 }
             }
         }
-    }
         stage('plan') {
             steps {
                script {
@@ -68,6 +67,7 @@ pipeline {
                 }
                 }
             }      
+    }
     }
     //post build
     post { 
