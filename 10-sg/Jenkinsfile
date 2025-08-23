@@ -66,17 +66,7 @@ pipeline {
                   """
                 }
                 }
-            }
-        // downstream job
-        stage('Trigger sg') {
-            steps {
-                script {
-                    build job: '10-sg',
-                    propogate: false, //even sg fails vpc will not be effected
-                    wait: false // vpc will not wait for sg pipeline completion
-                }
-            }
-        }        
+            }      
     }
     //post build
     post { 
