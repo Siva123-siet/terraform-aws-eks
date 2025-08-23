@@ -30,7 +30,7 @@ pipeline {
                   withAWS(credentials: 'aws-auth', region: 'us-east-1') {
                 // Your AWS CLI commands or other AWS interactions go here
                 sh """
-                    cd 10-sg
+                    cd 20-bastion
                     terraform init -reconfigure
                   """
                 }
@@ -43,7 +43,7 @@ pipeline {
                   withAWS(credentials: 'aws-auth', region: 'us-east-1') {
                 // Your AWS CLI commands or other AWS interactions go here
                 sh """
-                    cd 10-sg
+                    cd 20-bastion
                     terraform plan
                   """
                 }
@@ -61,60 +61,14 @@ pipeline {
                   withAWS(credentials: 'aws-auth', region: 'us-east-1') {
                 // Your AWS CLI commands or other AWS interactions go here
                 sh """
-                    cd 10-sg
+                    cd 20-bastion
                     terraform apply -auto-approve
                   """
                 }
                 }
             }      
-        }
-        // parallel stage
-        stage('Bastion EKS ACM ALB') {
-           parallel{
-                stage('Trigger bastion') {
-                    steps {
-                        script {
-                            build job: '20-bastion',
-                            propogate: false, 
-                            wait: false 
-                        }
-                    }
-            } 
-                stage('Trigger EKS') {
-                    steps {
-                        script {
-                            build job: '80-eks',
-                            propogate: false, 
-                            wait: false 
-                        }
-                    }
-            } 
-           stage('ACM ALB') {
-             // sequential stage
-             stages{
-                    stage('Trigger acm') {
-                        steps {
-                        script {
-                            build job: '60-acm',
-                            propogate: false, 
-                            wait: false 
-                        }
-                    }
-                }
-                    stage('Trigger ALB') {
-                        steps {
-                        script {
-                            build job: '70-ingress-alb',
-                            propogate: false, 
-                            wait: false 
-                        }
-                    }
-                }
-             }
-           }
-        }
     }
-}
+    }
     //post build
     post { 
         always { 
