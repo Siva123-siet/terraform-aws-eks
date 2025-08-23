@@ -89,11 +89,8 @@ pipeline {
                         }
                     }
             } 
-           stage('ACM ALB') {
-             // sequential stage
-             stages{
-                    stage('Trigger acm') {
-                        steps {
+                stage('ACM') {
+                    steps {
                         script {
                             build job: '60-acm',
                             propogate: false, 
@@ -101,20 +98,20 @@ pipeline {
                         }
                     }
                 }
-                    stage('Trigger ALB') {
-                        steps {
-                        script {
-                            build job: '70-ingress-alb',
-                            propogate: false, 
-                            wait: false 
-                        }
-                    }
-                }
+                    
              }
            }
         }
     }
-}
+        stage('Trigger ALB') {
+                steps {
+                    script {
+                        build job: '70-ingress-alb',
+                        propogate: false, 
+                        wait: false 
+                    }
+                }
+            }
     //post build
     post { 
         always { 
@@ -128,4 +125,3 @@ pipeline {
             echo 'Hello failure'
         }
     }
-}
