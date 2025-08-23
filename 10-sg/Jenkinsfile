@@ -30,7 +30,7 @@ pipeline {
                   withAWS(credentials: 'aws-auth', region: 'us-east-1') {
                 // Your AWS CLI commands or other AWS interactions go here
                 sh """
-                    cd 00-vpc
+                    cd 10-sg
                     terraform init -reconfigure
                   """
                 }
@@ -43,7 +43,7 @@ pipeline {
                   withAWS(credentials: 'aws-auth', region: 'us-east-1') {
                 // Your AWS CLI commands or other AWS interactions go here
                 sh """
-                    cd 00-vpc
+                    cd 10-sg
                     terraform plan
                   """
                 }
@@ -61,7 +61,7 @@ pipeline {
                   withAWS(credentials: 'aws-auth', region: 'us-east-1') {
                 // Your AWS CLI commands or other AWS interactions go here
                 sh """
-                    cd 00-vpc
+                    cd 10-sg
                     terraform apply -auto-approve
                   """
                 }
