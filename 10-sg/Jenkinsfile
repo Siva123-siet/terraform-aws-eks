@@ -75,7 +75,7 @@ pipeline {
                     steps {
                         script {
                             build job: '20-bastion',
-                            propogate: false, 
+                            propagate: false, 
                             wait: false 
                         }
                     }
@@ -84,7 +84,7 @@ pipeline {
                     steps {
                         script {
                             build job: '80-eks',
-                            propogate: false, 
+                            propagate: false, 
                             wait: false 
                         }
                     }
@@ -93,7 +93,7 @@ pipeline {
                     steps {
                         script {
                             build job: '60-acm',
-                            propogate: false, 
+                            propagate: false, 
                             wait: false 
                         }
                     }
@@ -107,7 +107,7 @@ pipeline {
                 steps {
                     script {
                         build job: '70-ingress-alb',
-                        propogate: false, 
+                        propagate: false, 
                         wait: false 
                     }
                 }
